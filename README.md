@@ -12,7 +12,7 @@ Before Replicating the code given, install all the requirements in requirements.
 Concerns: The Data file is too large to directly upload it to ArangoDB. Hence it has to be uploaded using a script.
 
 
-Refer to wikidata dump extract.py for the same
+Refer to 'wikidata dump extract.py' for the same
 
 ## Create a Graph
 
