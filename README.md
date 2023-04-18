@@ -31,7 +31,7 @@ Concerns: The Data file is too large to directly upload it to ArangoDB. Hence it
 
 We have figured out 2 ways of extractions:-
 1) python - using pyarango library (preferred)
-2) nodejs - using big-json
+2) nodejs - using big-json and yarn which are JSONStream packages.
 
 Refer to 'wikidata dump extract.py' and 'wikidata.js' for the same
 
