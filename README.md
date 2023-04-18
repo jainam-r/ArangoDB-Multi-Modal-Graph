@@ -13,6 +13,12 @@ Lots of data:-
 > 2,000,000 classes
 > 4,000 external id types
 
+Processing Wikidata dumps is just like any `ETL job`:
+
+`Extract` — we’ve got the raw data by now, just ingest it in your processing tool
+`Transform` — discard entities you are not interested in, and transform the entities you need into the format required for the loading phase
+`Load` — import your new clean data into your database or system of choice
+
 --------------------------------------------------------------------------------------
 
 Before Replicating the code given, install all the requirements in requirements.txt
