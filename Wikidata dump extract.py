@@ -2,10 +2,12 @@
 import qwikidata
 from qwikidata.entity import WikidataItem, WikidataProperty
 import pyArango.connection as CON
-path = 'D:\\wikidata-v1\\v1.json.gz'
+path = 'v1.json.gz'
 
 
 from qwikidata.json_dump import WikidataJsonDump
+
+
 
 wjd = WikidataJsonDump(path)
 
