@@ -23,20 +23,24 @@ Processing Wikidata dumps is just like any `ETL job`:
 
 --------------------------------------------------------------------------------------
 
+Variables to be Modified are:
+`LIMIT` - This specifies the number of objects to be extracted from the wikidata. More the data, more the time taken to process it.
+
+`URL` - This specifies the location of the wikidata, any size of file can be used since we will use the url to extract the object instead of saving such large files locally.
+
+`USERNAME` - This is the username of the ArangoDB Server of the user.
+
+`PASSWORD` - This is the username of the ArangoDB Server of the user.
+
+`DB_NAME` - Database Name
+
+`ITEM_COLLECTION` - Name of collection that will store item objects.
+
+`PROP_COLLECTION` - Name of collection that will store property objects.
+
+`EDGE_COLLECTION` - Name of collection that will store edges between items and properties.
+
 Before Replicating the code given, install all the requirements in requirements.txt
 
-## Loading the Wikidata into ArangoDB
-
-Concerns: The Data file is too large to directly upload it to ArangoDB. Hence it has to be uploaded using a script.
-
-We have figured out 2 ways of extractions:-
-1) python - using pyarango library (preferred)
-2) nodejs - using big-json and yarn which are JSONStream packages.
-
-Refer to 'wikidata dump extract.py' and 'wikidata.js' for the same
-
-## Create a Graph
-
-Concerns: There are a number of properties associated with each node. Hence, a representational decision is to be made to decide the property that is to be used as an edge between some nodes. Also, the possibility of "null" values has to be handled.
-
+Start the ArangoDB Server before running the code. PORT 8529 (Default)
 
