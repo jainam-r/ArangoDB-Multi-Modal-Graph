@@ -1,7 +1,8 @@
 import json
 import gzip
 import requests
-import ast
+# import ast
+from urllib.request import urlopen
 import pyArango.connection as CON
 from pyArango.graph import Graph, EdgeDefinition
 from pyArango.collection import Collection, Field, Edges
@@ -13,7 +14,7 @@ ITEM_COLLECTION = 'final_item'
 PROP_COLLECTION = 'final_prop'
 EDGE_COLLECTION = 'final_edge'
 GRAPH = 'final_graph'
-LIMIT = 100 # THIS DENOTES THE TOTAL NUMBER OF OBJECTS TO BE ACCESSED FROM THE WIKIDATA
+LIMIT = 40000 # THIS DENOTES THE TOTAL NUMBER OF OBJECTS TO BE ACCESSED FROM THE WIKIDATA
 url = 'https://archive.org/download/wikidata-json-20141027/20141027.json.gz'
 
 
