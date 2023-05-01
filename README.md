@@ -46,11 +46,17 @@ Start the ArangoDB Server before running the code. PORT 8529 (Default)
 
 EXAMPLE OF AQL QUERY IMPLEMENTED IN ARANGODB
 1. FOR doc in final_item
-FILTER doc._key == "Q165568"
-RETURN doc.label
+
+    FILTER doc._key == "Q165568"
+
+    RETURN doc.label
 
 2. FOR item in final_edge
-FILTER item._from == "final_item/Q165568"
-FOR doc in final_prop
-FILTER doc._id == item._to
-RETURN doc.label
+
+    FILTER item._from == "final_item/Q165568"
+
+    FOR doc in final_prop
+
+    FILTER doc._id == item._to
+
+    RETURN doc.label
