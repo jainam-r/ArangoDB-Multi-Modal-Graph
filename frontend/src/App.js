@@ -1,4 +1,3 @@
-import { Get } from "./Get";
 
 function App() {
   const { Database, aql } = require("arangojs");
