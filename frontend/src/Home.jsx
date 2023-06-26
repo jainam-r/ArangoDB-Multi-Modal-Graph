@@ -9,19 +9,29 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import { Typography } from '@mui/material';
+import logo from '../src/zenteiq_logo.png'
+
+import { styled, alpha } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Typography from '@mui/material/Typography';
+import InputBase from '@mui/material/InputBase';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search'; 
+
 
 export default function Home(){
-    const [data, setData] = useState(null);
-    // const sk = document.getElementById("outlined-basic");
+    const [data, setData] = useState('');
     const [sk,setsk] = useState('')
 
     async function fetchData(){
-        const sk2 = document.getElementById("outlined-basic").value
-        console.log(sk2)
+        console.log(sk)
         let data1 = '{"username":"root","password":""}';
         
-        let data =  `{"query" :"FOR course in courses FOR x in course.concepts_content FILTER x==@skill RETURN course", "count" : true, "bindVars" :{"skill":"Python"}}`;
+        let data2 =  `{"query" :"FOR course in courses FOR x in course.concepts_content FILTER x==@skill RETURN course", "count" : true, "bindVars" :{"skill":"${sk}"}}`;
         
         try{
             const res1 = await axios.post('http://localhost:8529/_open/auth',data1,{
@@ -31,7 +41,7 @@ export default function Home(){
             })
             const token = res1.data['jwt']
             console.log(token)
-            const res2 = await axios.post('http://localhost:8529/_db/Course/_api/cursor',data,{
+            const res2 = await axios.post('http://localhost:8529/_db/Course/_api/cursor',data2,{
                 headers: { 
                     'Content-Type': 'text/plain', 
                     'Authorization': 'Bearer '+token
@@ -44,69 +54,114 @@ export default function Home(){
         catch(error){
             console.log(error)
         }
-        // e.preventDefault()
     }
-    useEffect(()=>{
-        fetchData()
-    },[setData])
-    const Course=({name, domain, duration, price, description}) => {
+
+    const Course=({name, domain, duration, price, description,concepts}) => {
         return (
             <div>
-            <div class="box box1">
-           
-           <h3>{name}</h3>
-           {/* <input type="text" id="skills" value="Course skills"/> */}
-           <input type="text" id="domain" value="{domain}"/>
-           <input type="text" id="price" value="Course price"/>
-           <input type="text" id="duration" value="Course duration"/>
-           <input type="text" id="type" value="Course type"/>
-           <input type="text" id="content" value="Course content"/>
-       </div>
-            <Card sx={{maxWidth:350}}>
-                <CardHeader title={name} subheader={domain}></CardHeader>
+            <br/>
+            <Grid item>
+            <Card sx={{width:'100vh', display:'block'}}>
                 <CardContent>
-                    <Typography variant='body2' color="text.secondary">
-                        {description}
+                    <Typography variant='h3' color="text.primary">
+                        <b>{name}</b>
                     </Typography>
+                    <Typography variant='subtitle1' color="text.secondary">
+                        Description : {description}
+                    </Typography>
+                    <Typography>
+                    Skills to learn : {concepts.map((con)=>(
+                            <Typography sx={{display:'inline-block',verticalAlign:'middle'}} key={con}> {con}, </Typography>
+                        ))}
+                    </Typography>
+                    <Typography>
+                        Domain : {domain}
+                    </Typography>
+                    <Typography>
+                        Duration : {duration}
+                    </Typography>
+                    <Typography>
+                        Price : Rs {price}
+                    </Typography>
+                    
                 </CardContent>
-                <br/>
-                <br/>
+                <CardActions>
+                    <Button size="small">Enroll</Button>
+                </CardActions>
             </Card>
+            </Grid>
+            
             </div>
         )
     }
-
+    const handleTextFieldChange = (e) =>{
+        setsk(e.target.value)
+    }
+    const fetchData2 = (event) => {
+        event.preventDefault()
+        fetchData()
+    }
 return(
     <div>
-    <div class="topnav">
-        <img src="logo.png" alt="Logo" class="logok" />
-        <h1 class="head">Zenteiq</h1>
-        <div class="search-container">
-        <Box
-      component="form"
-      sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <TextField id="outlined-basic" label="Search any career or skill" variant="outlined" value={sk} onChange={e=>setsk(e.target.value)}/>
-      <Button variant="contained" type="submit" onClick={fetchData}>Search</Button>
-      
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" sx={{backgroundColor:'white'}}>
+        <Toolbar sx={{marginTop:2, marginBottom:2, justifyContent: "space-between"}}>
+          <Box
+            component="img"
+            sx={{
+            height: 64,
+            }}
+            alt="Your logo."
+            src={logo}
+        />
+          {/* <Search sx={{outlineColor:'black'}}> */}
+            {/* <StyledInputBase
+              placeholder="Search any skill"
+              inputProps={{ 'aria-label': 'search' }}
+              value={sk}
+              color="primary"
+              onChange={handleTextFieldChange}
+              
+            /> */}
+            <form>
+            <Box sx={{alignItems:'end'}}>
+            <TextField id="outlined-basic" 
+            label="Search any skill" 
+            variant="outlined" 
+            value={sk} 
+            onChange={handleTextFieldChange} 
+            />
+          <Button variant="contained" 
+          type="submit" 
+          onClick={fetchData2} 
+          sx={{marginTop:1, marginLeft:1}}
+         >
+            <SearchIcon/>
+          </Button>
+          </Box>
+          </form>
+        </Toolbar>
+      </AppBar>
     </Box>
-        </div>
-    </div>
-    
-    <Box sx={{flexDirection:'column'}}>
+
+    <Grid container
+  spacing={0}
+  direction="column"
+  alignItems="center"
+  justify="center"
+  style={{ minHeight: '100vh' }}
+ >
         {data && data.map((dat)=>(
             <Course key={dat._key} 
-            name={dat.Course_name} 
+            name={dat.Course_Name} 
             domain={dat.course_domain} 
             duration={dat.course_duration}
             price={dat.course_price}
-            description={dat.description}/>
+            description={dat.description}
+            concepts={dat.concepts_content}
+            />
         ))}
-    </Box>
+    </Grid>
     </div>
 )
 }
