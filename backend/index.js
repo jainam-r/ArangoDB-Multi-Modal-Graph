@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect("mongodb+srv://jainam-r:zenteiq@cluster0.ntxqi3q.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://jainam-r:<pwd>@cluster0.ntxqi3q.mongodb.net/?retryWrites=true&w=majority", {
     dbName: 'yourDB-name',
     useNewUrlParser: true,
     useUnifiedTopology: true
