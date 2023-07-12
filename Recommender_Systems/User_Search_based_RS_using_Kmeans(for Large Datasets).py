@@ -81,10 +81,16 @@ for i, course in enumerate(documents_courses):
 relevant_courses = sorted(relevant_courses, key=lambda x: x[1], reverse=True)
 
 # Sorting the most relevant courses
-top_courses = relevant_courses[:5]
-print("The Top Recommendations for you are:")
-for course, similarity in top_courses:
-    print(course['course_name'], similarity)
+recommended_courses = []
+for course, similarity in relevant_courses:
+    if similarity > 0.1:
+        recommended_courses.append((course['course_name'], similarity))
 
+if recommended_courses:
+    print("The Top Courses found are:")
+    for course, similarity in recommended_courses:
+        print(course)
+else:
+    print("No recommendations found.")
 
 print("\nElapsed time: %.2f seconds" % (time.time() - start_time))
