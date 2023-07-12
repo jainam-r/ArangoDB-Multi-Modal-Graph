@@ -38,7 +38,6 @@ for doc in documents_courses:
     # Adding the split author name as a list to the author_names list
     author_names.append(author_name)
     skills_you_will_gain.append(doc['skills_you_will_gain'])
-print(f"kfknskjnfkjnf{author_names}")
 
 #Keeping the course_name track by index
 course_name = [doc['course_name'] for doc in documents_courses]
