@@ -11,7 +11,7 @@ try:
     conn = Connection(
         arangoURL='http://localhost:8529',
         username='root',
-        password='qwerty'
+        password=''
     )
 except Exception as e:
     raise SystemExit(1)
