@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 #Setting up a connection with MongoDB using PyMongo
 try:
-    uri = "mongodb+srv://jainam-r:zenteiq@cluster0.ntxqi3q.mongodb.net/?tls=true&tlsAllowInvalidCertificates=true"
+    uri = "mongodb+srv://jainam-r:@cluster0.ntxqi3q.mongodb.net/?tls=true&tlsAllowInvalidCertificates=true"
     conn = MongoClient(uri)
     print("connection established!")
 except Exception as e:
@@ -73,9 +73,16 @@ for i, course in enumerate(documents_courses):
 relevant_courses = sorted(relevant_courses, key=lambda x: x[1], reverse=True)
 
 # Sorting the most relevant courses
-print("The Top Recommendations for you are:")
+recommended_courses = []
 for course, similarity in relevant_courses:
     if similarity > 0.1:
-      print(course['course_name'], similarity)
+        recommended_courses.append((course['course_name'], similarity))
+
+if recommended_courses:
+    print("The Top Courses found are:")
+    for course, similarity in recommended_courses:
+        print(course)
+else:
+    print("No recommendations found.")
 
 print("\nElapsed time: %.2f seconds" % (time.time() - start_time))
