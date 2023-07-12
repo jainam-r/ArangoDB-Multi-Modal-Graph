@@ -5,7 +5,6 @@ import numpy as np
 from pymongo import MongoClient
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
-from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 #Setting up a connection with MongoDB using PyMongo
@@ -20,9 +19,8 @@ except Exception as e:
 db_courses = conn['Courses']
 collection = db_courses['course']
 
-#Setting up the encoders
+#Setting up the encoder
 vectorizer = TfidfVectorizer()
-mlb = MultiLabelBinarizer()
 
 #Fetching the specific fields from the collection course
 documents_courses = list(collection.find({}, {'course_name': 1, 'course_description': 1, 'skills_you_will_gain': 1, 'author_id': 1}))
