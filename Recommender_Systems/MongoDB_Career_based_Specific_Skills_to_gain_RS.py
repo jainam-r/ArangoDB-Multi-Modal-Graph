@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 #Setting up a connection with MongoDB using PyMongo
 try:
-    uri = "mongodb+srv://jainam-r:zenteiq@cluster0.ntxqi3q.mongodb.net/?tls=true&tlsAllowInvalidCertificates=true"
+    uri = "mongodb+srv://jainam-r:<password>@cluster0.ntxqi3q.mongodb.net/?tls=true&tlsAllowInvalidCertificates=true"
     conn = MongoClient(uri)
     print("connection established!")
 except Exception as e:
